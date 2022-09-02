@@ -17,7 +17,7 @@
 
 brtr is a consumer-to-consumer e-commerce platform with no limits and no vowles! Like Craigslist but less murder-y! or Facebook Marketplace but without... Facebook. You won't even miss all the polarizing political content and misinformation from Russian spies!
 
-Users can browse as a guest or create an account for the full experience. With an account users will be able to list and sell items and buy other users items.
+Users can browse as a guest or create an account for the full experience. With an account users can list and sell items or buy other users items.
 
 A post MVP version sees reviews for both users and items, credit card processing, user and product reviews, and a barter system to trade items instead of using money.
 
