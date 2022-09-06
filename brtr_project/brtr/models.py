@@ -21,16 +21,16 @@ RATING_OPTIONS = (
 
 # Create your models here.
 class User(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=100, null=True)
-    last_name = models.CharField(max_length=100, null=True)
-    profile_photo = models.FileField(null=True)
-    street_address = models.CharField(max_length=100, null=True)
-    street_address_2 = models.CharField(max_length=100, null=True)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zip = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, blank=True)
+    password = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+    profile_photo = models.FileField(null=True, blank=True)
+    street_address = models.CharField(max_length=100, null=True, blank=True)
+    street_address_2 = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=100, null = True, blank=True)
+    zip = models.CharField(max_length=100, null = True, blank=True)
 
     def __str__(self):
         return self.username
@@ -48,11 +48,11 @@ class Product(models.Model):
     cateogry  = models.ManyToManyField(Category)
     name = models.CharField(max_length=100)
     price = models.FloatField(null=True)
-    description = models.TextField(max_length=255, null=True)
-    image = models.FileField(null=True)
+    description = models.TextField(max_length=255, null=True, blank=True)
+    image = models.FileField(null=True, blank=True)
     sale = models.BooleanField(null=False, default=True)
     trade = models.BooleanField(null=False, default=False)
-    delivery_options = models.CharField(max_length=100, choices = DELIVERY_CHOICES, null=True)
+    delivery_options = models.CharField(max_length=100, choices = DELIVERY_CHOICES, null=True, blank=True)
 
     def __str__(self):
       return self.name
@@ -71,7 +71,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, related_name='user_order', null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(User, related_name='product_order', null=True, on_delete=models.SET_NULL)
     delivery = models.CharField(max_length=100, choices = DELIVERY_CHOICES)
-    status = models.CharField(max_length=100, choices = ORDER_STATUSES)
+    status = models.CharField(max_length=100, choices = ORDER_STATUSES, default='pending')
     
     #add validator to give choices based on product.sale and product.trade
     
@@ -81,17 +81,17 @@ class Order(models.Model):
 class User_Review(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_review')
-    title = models.CharField(max_length=100, null=True)
-    body = models.TextField(null=True)
-    rating = models.CharField(max_length=100, choices = RATING_OPTIONS)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+    rating = models.CharField(max_length=100, choices = RATING_OPTIONS, blank=True)
     def __str__(self):
         return self.id
 
 class Product_Review(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
     product = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_review')
-    title = models.CharField(max_length=100, null=True)
-    body = models.TextField(null=True)
-    rating = models.CharField(max_length=100, choices = RATING_OPTIONS)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+    rating = models.CharField(max_length=100, choices = RATING_OPTIONS, blank=True)
     def __str__(self):
         return self.id
