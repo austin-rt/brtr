@@ -7,5 +7,3 @@ admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(UserReview)
 admin.site.register(ProductReview)
-
-# Register your models here.

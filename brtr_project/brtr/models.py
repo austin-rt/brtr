@@ -49,14 +49,14 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product')
-    cateogry  = models.ManyToManyField(Category)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
+    category  = models.ManyToManyField(Category)
     name = models.CharField(max_length=100)
     price = models.FloatField(null=True)
     description = models.TextField(max_length=255, null=True, blank=True)
     image = models.FileField(null=True, blank=True)
-    for_sale = models.BooleanField(null=False, default=True)
-    for_trade = models.BooleanField(null=False, default=False)
+    for_sale = models.BooleanField(default=True)
+    for_trade = models.BooleanField(default=False)
     delivery_options = models.ManyToManyField(DeliveryChoices)
 
     def __str__(self):
@@ -70,33 +70,37 @@ class Order(models.Model):
       ('out_for_delivery', 'Out For Delivery'),
       ('delivered', 'Delivered'),
     )
-
-    confirmation_number = models.UUIDField(default = uuid.uuid4, primary_key=True)
+    id = models.BigAutoField(primary_key=True, )
+    confirmation_number = models.UUIDField(default = uuid.uuid4)
     type = models.CharField(max_length=100, choices = ORDER_CHOICES)
-    user = models.ForeignKey(User, related_name='user_order', null=True, on_delete=models.SET_NULL)
+    buyer = models.ForeignKey(User, related_name='user_order', null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(Product, related_name='product_order', null=True, on_delete=models.SET_NULL)
     delivery = models.CharField(max_length=100, choices = DELIVERY_CHOICES)
     status = models.CharField(max_length=100, choices = ORDER_STATUSES, default='pending')
     date_placed = models.DateTimeField(auto_now=True, null=True)
-    #add validator to give choices based on product.sale and product.trade
+    # add validator to give choices based on product.for_sale and product.for_trade
     
     def __str__(self):
         return str(self.confirmation_number)
 
 class UserReview(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_review')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_written')
+    reviewee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_received')
     title = models.CharField(max_length=100, null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     rating = models.CharField(max_length=100, choices = RATING_OPTIONS, blank=True)
+    
     def __str__(self):
-        return self.id
+        return ('{reviewee} review {id}'.format(reviewee=self.reviewee, id=self.id))
 
 class ProductReview(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
-    product = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_review')
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_reviewer')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     title = models.CharField(max_length=100, null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     rating = models.CharField(max_length=100, choices = RATING_OPTIONS, blank=True)
+    
     def __str__(self):
-        return self.id
+        return '{product} review {id}'.format(product=self.product, id=self.id)
