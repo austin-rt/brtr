@@ -7,7 +7,7 @@ DELIVERY_CHOICES = (
 )
 
 ORDER_CHOICES = (
-  ('sell', 'Sell'),
+  ('buy', 'Buy'),
   ('trade', 'Trade')
 )
 
@@ -19,7 +19,12 @@ RATING_OPTIONS = (
   ('5', '5')
 )
 
-# Create your models here.
+class DeliveryChoices(models.Model):
+    choice = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.choice
+
 class User(models.Model):
     username = models.CharField(max_length=100, blank=True)
     password = models.CharField(max_length=100, blank=True)
@@ -39,7 +44,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.username
+        return self.name
 
 
 
@@ -50,9 +55,9 @@ class Product(models.Model):
     price = models.FloatField(null=True)
     description = models.TextField(max_length=255, null=True, blank=True)
     image = models.FileField(null=True, blank=True)
-    sale = models.BooleanField(null=False, default=True)
-    trade = models.BooleanField(null=False, default=False)
-    delivery_options = models.CharField(max_length=100, choices = DELIVERY_CHOICES, null=True, blank=True)
+    for_sale = models.BooleanField(null=False, default=True)
+    for_trade = models.BooleanField(null=False, default=False)
+    delivery_options = models.ManyToManyField(DeliveryChoices)
 
     def __str__(self):
       return self.name
@@ -69,16 +74,16 @@ class Order(models.Model):
     confirmation_number = models.UUIDField(default = uuid.uuid4, primary_key=True)
     type = models.CharField(max_length=100, choices = ORDER_CHOICES)
     user = models.ForeignKey(User, related_name='user_order', null=True, on_delete=models.SET_NULL)
-    product = models.ForeignKey(User, related_name='product_order', null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, related_name='product_order', null=True, on_delete=models.SET_NULL)
     delivery = models.CharField(max_length=100, choices = DELIVERY_CHOICES)
     status = models.CharField(max_length=100, choices = ORDER_STATUSES, default='pending')
-    
+    date_placed = models.DateTimeField(auto_now=True, null=True)
     #add validator to give choices based on product.sale and product.trade
     
     def __str__(self):
-        return self.confirmation_number
+        return str(self.confirmation_number)
 
-class User_Review(models.Model):
+class UserReview(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_review')
     title = models.CharField(max_length=100, null=True, blank=True)
@@ -87,7 +92,7 @@ class User_Review(models.Model):
     def __str__(self):
         return self.id
 
-class Product_Review(models.Model):
+class ProductReview(models.Model):
     id = models.AutoField(auto_created = True, primary_key=True)
     product = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_review')
     title = models.CharField(max_length=100, null=True, blank=True)
