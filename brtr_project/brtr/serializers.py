@@ -20,7 +20,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'first_name', 'last_name', 'profile_photo', 'street_address', 'street_address_2', 'city', 'state', 'zip', 'products', 'reviews_written', 'reviews_received')
+        fields = ('id', 'username', 'password','products', 'reviews_written', 'reviews_received')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

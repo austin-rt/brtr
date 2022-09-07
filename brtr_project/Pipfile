@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 psycopg2-binary = "*"
-python-dotenv = "*"
 djangorestframework-simplejwt = "*"
+django-extensions = "*"
 
 [dev-packages]
 
