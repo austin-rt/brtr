@@ -8,7 +8,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserSerializer, ProductSerializer, CategorySerializer, ProductSerializer, DeliveryChoicesSerializer, OrderSerializer, UserReviewSerializer, ProductReviewSerializer 
 from brtr.models import User, Product, Category, DeliveryChoices, Order, UserReview, ProductReview
 
-@permission_classes([IsAdminUser])
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -42,7 +41,6 @@ class DeliveryChoicesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = DeliveryChoices.objects.all()
     serializer_class = DeliveryChoicesSerializer
 
-@permission_classes([IsAdminUser])
 class OrderList(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
