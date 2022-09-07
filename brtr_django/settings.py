@@ -1,4 +1,3 @@
-#
 """
 Django settings for brtr_django project.
 

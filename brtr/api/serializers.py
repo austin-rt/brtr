@@ -1,4 +1,3 @@
-#
 from rest_framework import serializers
 from brtr.models import User, Category, DeliveryChoices, Product, Order, UserReview, ProductReview
 
