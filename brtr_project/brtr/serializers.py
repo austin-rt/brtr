@@ -53,11 +53,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'user', 'name', 'category', 'price', 'description', 'image', 'for_sale', 'for_trade', 'reviews')
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
-        read_only=True
-    )
-    reviewee = serializers.HyperlinkedRelatedField(
+    buyer = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
