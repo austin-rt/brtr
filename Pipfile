@@ -12,6 +12,8 @@ djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 
