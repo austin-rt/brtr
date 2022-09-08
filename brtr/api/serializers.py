@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from brtr.models import User, Category, DeliveryChoices, Product, Order, UserReview, ProductReview
+from brtr.models import Cart, User, Category, DeliveryChoices, Product, Order, UserReview, ProductReview
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     products = serializers.HyperlinkedRelatedField(
@@ -51,6 +51,12 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'user', 'name', 'category', 'price', 'description', 'image', 'for_sale', 'for_trade', 'reviews')
+
+# class CartSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = Cart
+#         fields = ('products')
+
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     buyer = serializers.HyperlinkedRelatedField(

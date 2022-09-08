@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import UserSerializer, ProductSerializer, CategorySerializer, ProductSerializer, DeliveryChoicesSerializer, OrderSerializer, UserReviewSerializer, ProductReviewSerializer 
-from brtr.models import User, Product, Category, DeliveryChoices, Order, UserReview, ProductReview
+from .serializers import *
+from brtr.models import *
 
 @permission_classes([IsAuthenticated])
 class UserList(generics.ListCreateAPIView):
@@ -40,6 +40,10 @@ class DeliveryChoicesList(generics.ListCreateAPIView):
 class DeliveryChoicesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = DeliveryChoices.objects.all()
     serializer_class = DeliveryChoicesSerializer
+
+# class CartDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Cart.objects.all()
+#     serializer_class = CartSerializer
 
 @permission_classes([IsAuthenticated])
 class OrderList(generics.ListCreateAPIView):
