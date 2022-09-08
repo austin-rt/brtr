@@ -1,6 +1,6 @@
 from django.contrib import admin
+from .models import *
 
-from .models import DeliveryChoices, Category, Product, Order, UserReview, ProductReview, Cart
 admin.site.register(DeliveryChoices)
 # admin.site.register(Cart)
 admin.site.register(Category)

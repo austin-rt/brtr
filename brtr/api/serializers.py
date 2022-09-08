@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from brtr.models import Cart, User, Category, DeliveryChoices, Product, Order, UserReview, ProductReview
+from brtr.models import *
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     products = serializers.HyperlinkedRelatedField(
