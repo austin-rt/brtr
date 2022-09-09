@@ -29,9 +29,6 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ['DEBUG'] == 'True'
 
 ALLOWED_HOSTS = []
-# if not DEBUG:
-#     ALLOWED_HOSTS = ['brtr-backend.herokuapp.com', 'localhost:3000']
-
 
 # Application definition
 
@@ -154,7 +151,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 django_heroku.settings(locals(), staticfiles=False)
