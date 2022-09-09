@@ -30,7 +30,7 @@ DEBUG = os.environ['DEBUG'] == 'True'
 
 ALLOWED_HOSTS = ['localhost']
 if not DEBUG:
-    ALLOWED_HOSTS = ['brtr-backend.herokuapp.com']
+    ALLOWED_HOSTS = ['brtr-backend.herokuapp.com', 'localhost:3000']
 
 
 # Application definition
