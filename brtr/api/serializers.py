@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from brtr.models import *
+from .serializers import ProductSerializer, OrderSerializer, CategorySerializer, UserReviewSerializer, ProductReviewSerializer, DeliveryChoicesSerializer
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -10,17 +11,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         )
         return user
 
-    products = serializers.HyperlinkedRelatedField(
-        view_name='product_detail',
-        many=True,
-        read_only=True
-    )
-    reviews_written = serializers.HyperlinkedRelatedField(
+    products = ProductSerializer(many=True, read_only=True)
+    reviews_written = UserReviewSerializer(
         view_name='user_review_detail',
         many=True,
         read_only=True
     )
-    reviews_received = serializers.HyperlinkedRelatedField(
+    reviews_received = UserReviewSerializer(
         view_name='user_review_detail',
         many=True,
         read_only=True
