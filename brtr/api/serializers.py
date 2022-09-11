@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from brtr.models import *
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -10,15 +10,18 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
-    products = serializers.RelatedField(
+    products = serializers.HyperlinkedRelatedField(
+        view_name='product_detail',
         many=True,
         read_only=True
     )
-    reviews_written = serializers.RelatedField(
+    reviews_written = serializers.HyperlinkedRelatedField(
+        view_name='user_review_detail',
         many=True,
         read_only=True
     )
-    reviews_received = serializers.RelatedField(
+    reviews_received = serializers.HyperlinkedRelatedField(
+        view_name='user_review_detail',
         many=True,
         read_only=True
     )
@@ -96,8 +99,8 @@ class ProductReviewSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True
     )
     product = serializers.HyperlinkedRelatedField(
-      view_name='product_detail',
-      read_only=True
+        view_name='product_detail',
+        read_only=True
     )
 
     class Meta:
