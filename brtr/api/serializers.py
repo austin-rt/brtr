@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from brtr.models import *
 
-class UserSerializer(serializers.HyperlinkeModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
         user = User.objects.create_user(
