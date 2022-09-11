@@ -42,12 +42,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     products = ProductSerializer(many=True, read_only=True)
     reviews_written = UserReviewSerializer(
-        view_name='user_review_detail',
         many=True,
         read_only=True
     )
     reviews_received = UserReviewSerializer(
-        view_name='user_review_detail',
         many=True,
         read_only=True
     )
