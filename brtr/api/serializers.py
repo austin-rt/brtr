@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from brtr.models import *
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -10,25 +10,22 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         )
         return user
 
-    products = serializers.HyperlinkedRelatedField(
-        view_name='product_detail',
-        many=True,
-        read_only=True
-    )
-    reviews_written = serializers.HyperlinkedRelatedField(
-        view_name='user_review_detail',
-        many=True,
-        read_only=True
-    )
-    reviews_received = serializers.HyperlinkedRelatedField(
-        view_name='user_review_detail',
-        many=True,
-        read_only=True
-    )
+    products = serializers.RelatedField(many=True)
+    # reviews_written = serializers.HyperlinkedRelatedField(
+    #     view_name='user_review_detail',
+    #     many=True,
+    #     read_only=True
+    # )
+    # reviews_received = serializers.HyperlinkedRelatedField(
+    #     view_name='user_review_detail',
+    #     many=True,
+    #     read_only=True
+    # )
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'products', 'reviews_written', 'reviews_received')
+        fields = ('id', 'username', 'password', 'products')
+        # 'reviews_written', 'reviews_received')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
