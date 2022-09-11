@@ -40,7 +40,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField(null=True)
     description = models.TextField(max_length=255, null=True, blank=True)
-    image = models.FileField(null=True, blank=True)
+    image = models.URLField(null=True, blank=True)
     for_sale = models.BooleanField(default=True)
     for_trade = models.BooleanField(default=False)
     delivery_options = models.ManyToManyField(DeliveryChoices)
