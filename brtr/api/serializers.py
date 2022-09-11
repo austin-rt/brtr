@@ -1,6 +1,35 @@
 from rest_framework import serializers
 from brtr.models import *
-from .serializers import ProductSerializer, CategorySerializer, UserReviewSerializer, ProductReviewSerializer, DeliveryChoicesSerializer
+
+
+class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
+        read_only=True
+    )
+    reviewee = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
+        read_only=True
+    )
+    class Meta:
+        model = UserReview
+        fields = ('id', 'user', 'reviewee', 'title', 'body', 'rating')
+
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
+        read_only=True
+    )
+    category = serializers.HyperlinkedRelatedField(
+        view_name='categories_detail',
+        many=True,
+        read_only=True
+    )
+    reviews = serializers.HyperlinkedRelatedField(
+        view_name='product_review_detail',
+        many=True,
+        read_only=True
+    )
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -37,21 +66,6 @@ class DeliveryChoicesSerializer(serializers.HyperlinkedModelSerializer):
         model = DeliveryChoices
         fields = ('id', 'name')
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
-        read_only=True
-    )
-    category = serializers.HyperlinkedRelatedField(
-        view_name='categories_detail',
-        many=True,
-        read_only=True
-    )
-    reviews = serializers.HyperlinkedRelatedField(
-        view_name='product_review_detail',
-        many=True,
-        read_only=True
-    )
 
     class Meta:
         model = Product
@@ -77,18 +91,6 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         model = Order
         fields = ('id', 'confirmation_number', 'type', 'buyer', 'product')
 
-class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
-        read_only=True
-    )
-    reviewee = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
-        read_only=True
-    )
-    class Meta:
-        model = UserReview
-        fields = ('id', 'user', 'reviewee', 'title', 'body', 'rating')
 
 class ProductReviewSerializer(serializers.HyperlinkedModelSerializer):
     reviewer = serializers.HyperlinkedRelatedField(
