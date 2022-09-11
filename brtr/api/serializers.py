@@ -2,7 +2,7 @@ from rest_framework import serializers
 from brtr.models import *
 from .serializers import ProductSerializer, OrderSerializer, CategorySerializer, UserReviewSerializer, ProductReviewSerializer, DeliveryChoicesSerializer
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
         user = User.objects.create_user(
