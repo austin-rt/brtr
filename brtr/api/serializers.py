@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from brtr.models import *
-from .serializers import ProductSerializer, OrderSerializer, CategorySerializer, UserReviewSerializer, ProductReviewSerializer, DeliveryChoicesSerializer
+from .serializers import ProductSerializer, CategorySerializer, UserReviewSerializer, ProductReviewSerializer, DeliveryChoicesSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
