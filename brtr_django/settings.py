@@ -26,7 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = os.environ['DEBUG'] == 'True'
+print('debug={DEBUG}'.format(DEBUG=DEBUG))
 
 ALLOWED_HOSTS = []
 
@@ -152,5 +154,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_COOKIE_SECURE = True
 
 django_heroku.settings(locals(), staticfiles=False)
