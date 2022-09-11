@@ -11,17 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     products = serializers.RelatedField(
-        view_name='product_detail',
         many=True,
         read_only=True
     )
     reviews_written = serializers.RelatedField(
-        view_name='user_review_detail',
         many=True,
         read_only=True
     )
     reviews_received = serializers.RelatedField(
-        view_name='user_review_detail',
         many=True,
         read_only=True
     )
@@ -42,16 +39,13 @@ class DeliveryChoicesSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.RelatedField(
-        view_name='user_detail',
         read_only=True
     )
     category = serializers.RelatedField(
-        view_name='categories_detail',
         many=True,
         read_only=True
     )
     reviews = serializers.RelatedField(
-        view_name='product_review_detail',
         many=True,
         read_only=True
     )
@@ -69,11 +63,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     buyer = serializers.RelatedField(
-        view_name='user_detail',
         read_only=True
     )
     product = serializers.RelatedField(
-        view_name='product_detail',
         read_only=True
     )
 
@@ -83,11 +75,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class UserReviewSerializer(serializers.ModelSerializer):
     user = serializers.RelatedField(
-        view_name='user_detail',
         read_only=True
     )
     reviewee = serializers.RelatedField(
-        view_name='user_detail',
         read_only=True
     )
     class Meta:
@@ -96,11 +86,9 @@ class UserReviewSerializer(serializers.ModelSerializer):
 
 class ProductReviewSerializer(serializers.ModelSerializer):
     reviewer = serializers.RelatedField(
-        view_name='user_detail',
         read_only=True
     )
     product = serializers.RelatedField(
-        view_name='product_detail',
       read_only=True
     )
 
