@@ -7,12 +7,12 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import *
 from brtr.models import *
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -45,12 +45,12 @@ class DeliveryChoicesDetail(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Cart.objects.all()
 #     serializer_class = CartSerializer
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class OrderList(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
