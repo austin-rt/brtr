@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
-    products = serializers.RelatedField(many=True)
+    products = serializers.RelatedField(read_only=True, many=True)
     # reviews_written = serializers.HyperlinkedRelatedField(
     #     view_name='user_review_detail',
     #     many=True,
