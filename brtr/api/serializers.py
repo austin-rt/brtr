@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from brtr.models import *
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkeModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -10,17 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
-    products = serializers.RelatedField(
+    products = serializers.HyperlinkedRelatedField(
         view_name='product_detail',
         many=True,
         read_only=True
     )
-    reviews_written = serializers.RelatedField(
+    reviews_written = serializers.HyperlinkedRelatedField(
         view_name='user_review_detail',
         many=True,
         read_only=True
     )
-    reviews_received = serializers.RelatedField(
+    reviews_received = serializers.HyperlinkedRelatedField(
         view_name='user_review_detail',
         many=True,
         read_only=True
@@ -30,27 +30,27 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'password', 'products', 'reviews_written', 'reviews_received')
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name')
 
-class DeliveryChoicesSerializer(serializers.ModelSerializer):
+class DeliveryChoicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DeliveryChoices
         fields = ('id', 'name')
 
-class ProductSerializer(serializers.ModelSerializer):
-    user = serializers.RelatedField(
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
-    category = serializers.RelatedField(
+    category = serializers.HyperlinkedRelatedField(
         view_name='categories_detail',
         many=True,
         read_only=True
     )
-    reviews = serializers.RelatedField(
+    reviews = serializers.HyperlinkedRelatedField(
         view_name='product_review_detail',
         many=True,
         read_only=True
@@ -60,18 +60,18 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('id', 'user', 'name', 'category', 'price', 'description', 'image', 'for_sale', 'for_trade', 'reviews')
 
-# class CartSerializer(serializers.ModelSerializer):
+# class CartSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = Cart
 #         fields = ('products')
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    buyer = serializers.RelatedField(
+class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    buyer = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
-    product = serializers.RelatedField(
+    product = serializers.HyperlinkedRelatedField(
         view_name='product_detail',
         read_only=True
     )
@@ -80,12 +80,12 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'confirmation_number', 'type', 'buyer', 'product')
 
-class UserReviewSerializer(serializers.ModelSerializer):
-    user = serializers.RelatedField(
+class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
-    reviewee = serializers.RelatedField(
+    reviewee = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
@@ -93,14 +93,14 @@ class UserReviewSerializer(serializers.ModelSerializer):
         model = UserReview
         fields = ('id', 'user', 'reviewee', 'title', 'body', 'rating')
 
-class ProductReviewSerializer(serializers.ModelSerializer):
-    reviewer = serializers.RelatedField(
+class ProductReviewSerializer(serializers.HyperlinkedModelSerializer):
+    reviewer = serializers.HyperlinkedRelatedField(
         view_name='user_detail',
         read_only=True
     )
-    product = serializers.RelatedField(
-        view_name='product_detail',
-        read_only=True
+    product = serializers.HyperlinkedRelatedField(
+      view_name='product_detail',
+      read_only=True
     )
 
     class Meta:
