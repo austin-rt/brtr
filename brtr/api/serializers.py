@@ -27,25 +27,28 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'password', 'products', 'reviews_written', 'reviews_received')
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'name')
 
-class DeliveryChoicesSerializer(serializers.ModelSerializer):
+class DeliveryChoicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DeliveryChoices
         fields = ('id', 'name')
 
-class ProductSerializer(serializers.ModelSerializer):
-    user = serializers.RelatedField(
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
         read_only=True
     )
-    category = serializers.RelatedField(
+    category = serializers.HyperlinkedRelatedField(
+        view_name='categories_detail',
         many=True,
         read_only=True
     )
-    reviews = serializers.RelatedField(
+    reviews = serializers.HyperlinkedRelatedField(
+        view_name='product_review_detail',
         many=True,
         read_only=True
     )
@@ -53,19 +56,20 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'user', 'name', 'category', 'price', 'description', 'image', 'for_sale', 'for_trade', 'reviews')
-        depth = 1
 
-# class CartSerializer(serializers.ModelSerializer):
+# class CartSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = Cart
 #         fields = ('products')
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    buyer = serializers.RelatedField(
+class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    buyer = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
         read_only=True
     )
-    product = serializers.RelatedField(
+    product = serializers.HyperlinkedRelatedField(
+        view_name='product_detail',
         read_only=True
     )
 
@@ -73,22 +77,26 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'confirmation_number', 'type', 'buyer', 'product')
 
-class UserReviewSerializer(serializers.ModelSerializer):
-    user = serializers.RelatedField(
+class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
         read_only=True
     )
-    reviewee = serializers.RelatedField(
+    reviewee = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
         read_only=True
     )
     class Meta:
         model = UserReview
         fields = ('id', 'user', 'reviewee', 'title', 'body', 'rating')
 
-class ProductReviewSerializer(serializers.ModelSerializer):
-    reviewer = serializers.RelatedField(
+class ProductReviewSerializer(serializers.HyperlinkedModelSerializer):
+    reviewer = serializers.HyperlinkedRelatedField(
+        view_name='user_detail',
         read_only=True
     )
-    product = serializers.RelatedField(
+    product = serializers.HyperlinkedRelatedField(
+      view_name='product_detail',
       read_only=True
     )
 
