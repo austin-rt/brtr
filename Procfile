@@ -1,1 +1,0 @@
-web: gunicorn brtr_django.wsgi --log-file -
