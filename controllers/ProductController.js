@@ -37,8 +37,19 @@ const UpdateProduct = async (req, res) => {
   }
 };
 
+const DeleteProduct = async (req, res) => {
+  try {
+    let product_id = parseInt(req.params.product_id);
+    await Product.destroy({ where: { id: product_id } });
+    res.send({ message: `Deleted product with an id of ${product_id}` });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   GetAllProducts,
   CreateProduct,
-  UpdateProduct
+  UpdateProduct,
+  DeleteProduct
 };
