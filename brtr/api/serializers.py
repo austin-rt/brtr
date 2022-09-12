@@ -38,7 +38,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'user', 'name', 'category', 'price', 'description', 'image', 'for_sale', 'for_trade', 'reviews')
-        depth = 1
+        depth = 2
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
