@@ -1,8 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-const User = require('./User');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -15,39 +12,34 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.User, {
         foreignKey: 'seller_id',
         as: 'products',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      })
-      Product.hasMany(models.ProductReview, {
-        foreignKey: 'product_id',
-        as: 'product_reviews',
         onDelete: 'cascade',
         onUpdate: 'cascade'
       })
     }
   }
-  Product.init({
-    seller_id: {
+  Product.init(
+    {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: 'seller_id',
+        field: 'user_id',
         onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id'
         }
       },
-    name: DataTypes.STRING,
-    price: DataTypes.FLOAT,
-    image: {
-        type: DataTypes.TEXT,
-        allowNull: true
-      },
-    description: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Product',
-    tableName: 'products',
-  });
-  return Product;
-};
+      name: DataTypes.STRING,
+      price: DataTypes.FLOAT,
+      description: DataTypes.STRING,
+      for_sale: DataTypes.BOOLEAN,
+      for_trae: DataTypes.BOOLEAN
+    },
+    {
+      sequelize,
+      modelName: 'Product',
+      tableName: 'product'
+    }
+  )
+  return Product
+}
