@@ -16,12 +16,6 @@ try {
     const reviews = await Review.findAll({
       where: { reviewee_id: reviewee_id },
       returning: true
-      // include: [
-      //   {
-      //     model: User,
-      //     as: 'reviews_posted',
-      //   }
-      // ]
     });
     res.send(reviews);
   } catch (error) {
@@ -35,12 +29,6 @@ try {
     const reviews = await Review.findAll({
       where: { reviewer_id: reviewer_id },
       returning: true
-      // include: [
-      //   {
-      //     model: User,
-      //     as: 'reviews_posted',
-      //   }
-      // ]
     });
     res.send(reviews);
   } catch (error) {
@@ -48,8 +36,33 @@ try {
   }
 }
 
+const UpdateReview = async (req, res) => {
+  try {
+    let review_id = parseInt(req.params.review_id);
+    let updatedReview = await Review.update(req.body, {
+      where: { id: review_id },
+      returning: true
+    });
+    res.send(updatedReview);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const DeleteReview = async (req, res) => {
+  try {
+    let review_id = parseInt(req.params.review_id);
+    await Review.destroy({ where: { id: review_id } });
+    res.send({ message: `Deleted review with an id of ${review_id}` });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   GetAllReviews,
   GetReviewsByReviewee,
-  GetReviewsByReviewer
+  GetReviewsByReviewer,
+  UpdateReview,
+DeleteReview
 };

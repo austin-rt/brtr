@@ -6,7 +6,7 @@ const ProductReviewRouter = require('./ProductReviewRouter')
 
 Router.use('/users', UserRouter)
 Router.use('/products', ProductRouter)
-Router.use('/reviews', ReviewRouter)
+Router.use('/user-reviews', ReviewRouter)
 Router.use('/product-reviews', ProductReviewRouter)
 
 module.exports = Router
