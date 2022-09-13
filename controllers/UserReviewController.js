@@ -35,7 +35,24 @@ try {
   }
 }
 
-const UpdateReview = async (req, res) => {
+const CreateUserReview = async (req, res) => {
+  try {
+    let reviewer_id = parseInt(req.params.reviewer_id);
+    let reviewee_id = parseInt(req.params.reviewee_id);
+
+    let reviewBody = {
+      reviewer_id,
+      reviewee_id,
+      ...req.body
+    };
+    let review = await UserReview.create(reviewBody);
+    res.send(review);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const UpdateUserReview = async (req, res) => {
   try {
     let review_id = parseInt(req.params.review_id);
     let updatedReview = await UserReview.update(req.body, {
@@ -48,7 +65,7 @@ const UpdateReview = async (req, res) => {
   }
 };
 
-const DeleteReview = async (req, res) => {
+const DeleteUserReview = async (req, res) => {
   try {
     let review_id = parseInt(req.params.review_id);
     await UserReview.destroy({ where: { id: review_id } });
@@ -62,6 +79,7 @@ module.exports = {
   GetAllReviews,
   GetReviewsByReviewee,
   GetReviewsByReviewer,
-  UpdateReview,
-DeleteReview
+  CreateUserReview,
+  UpdateUserReview,
+  DeleteUserReview
 };
