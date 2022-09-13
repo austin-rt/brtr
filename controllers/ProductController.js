@@ -1,5 +1,4 @@
-const { Product } = require('../models');
-const product = require('../models/product');
+const { Product, ProductReview, User } = require('../models');
 
 const GetAllProducts = async (req, res) => {
   try {
@@ -9,6 +8,23 @@ const GetAllProducts = async (req, res) => {
     throw error
   }
 }
+
+const GetProductById = async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.product_id, {
+      include: [
+        {
+          model: ProductReview,
+          as: 'product_reviews',
+          include: [{ model: User, as: 'reviews_posted' }]
+        }
+      ]
+    });
+    res.send(product);
+  } catch (error) {
+    throw error;
+  }
+};
 
 const CreateProduct = async(req, res)=> {
   try {
@@ -49,6 +65,7 @@ const DeleteProduct = async (req, res) => {
 
 module.exports = {
   GetAllProducts,
+  GetProductById,
   CreateProduct,
   UpdateProduct,
   DeleteProduct

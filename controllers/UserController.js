@@ -1,4 +1,4 @@
-const { User, Product, Review} = require('../models')
+const { User, Product, Review, ProductReview} = require('../models')
 
 const GetUsers = async (req, res) => {
   try {
@@ -14,9 +14,10 @@ const GetUserById = async (req, res) => {
     const userAndTwerts = await User.findByPk(req.params.user_id, {
       include:
       [
-        { model: Product, as: 'products' },
-        { model: Review, as: 'reviews_posted' },
-        { model: Review, as: 'reviews_received' },
+        { model: Product, as: 'products'},
+        { model: Review, as: 'reviews_posted'},
+        { model: Review, as: 'reviews_received'},
+        { model: ProductReview, as: 'reviewer'}
       ]
     })
     res.send(userAndTwerts)
