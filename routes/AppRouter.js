@@ -1,7 +1,7 @@
 const Router = require('express').Router()
 const UserRouter = require('./UserRouter')
 const ProductRouter = require('./ProductRouter')
-const ReviewRouter = require('./ReviewRouter')
+const ReviewRouter = require('./UserReviewRouter')
 const ProductReviewRouter = require('./ProductReviewRouter')
 
 Router.use('/users', UserRouter)

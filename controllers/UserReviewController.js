@@ -1,9 +1,8 @@
-const { Review, User } = require('../models');
-const product = require('../models/product');
+const { UserReview, User } = require('../models');
 
 const GetAllReviews = async (req, res) => {
   try {
-    const review = await Review.findAll()
+    const review = await UserReview.findAll()
     res.send(review)
   } catch (error) {
     throw error
@@ -13,7 +12,7 @@ const GetAllReviews = async (req, res) => {
 const GetReviewsByReviewee = async (req,res) => {
 try {
   let reviewee_id = parseInt(req.params.reviewee_id);
-    const reviews = await Review.findAll({
+    const reviews = await UserReview.findAll({
       where: { reviewee_id: reviewee_id },
       returning: true
     });
@@ -26,7 +25,7 @@ try {
 const GetReviewsByReviewer = async (req,res) => {
 try {
   let reviewer_id = parseInt(req.params.reviewer_id);
-    const reviews = await Review.findAll({
+    const reviews = await UserReview.findAll({
       where: { reviewer_id: reviewer_id },
       returning: true
     });
@@ -39,7 +38,7 @@ try {
 const UpdateReview = async (req, res) => {
   try {
     let review_id = parseInt(req.params.review_id);
-    let updatedReview = await Review.update(req.body, {
+    let updatedReview = await UserReview.update(req.body, {
       where: { id: review_id },
       returning: true
     });
@@ -52,7 +51,7 @@ const UpdateReview = async (req, res) => {
 const DeleteReview = async (req, res) => {
   try {
     let review_id = parseInt(req.params.review_id);
-    await Review.destroy({ where: { id: review_id } });
+    await UserReview.destroy({ where: { id: review_id } });
     res.send({ message: `Deleted review with an id of ${review_id}` });
   } catch (error) {
     throw error;

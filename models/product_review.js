@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Review extends Model {
+  class ProductReview extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsTo(models.User, {
+      ProductReview.belongsTo(models.User, {
         foreignKey: 'reviewer_id',
-        as: 'reviews_posted',
+        as: 'product_reviews_posted',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
-      Review.belongsTo(models.User, {
-        foreignKey: 'reviewee_id',
-        as: 'reviews_recieved',
+      ProductReview.belongsTo(models.Product, {
+        foreignKey: 'product_id',
+        as: 'product_reviews',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
     }
   }
-  Review.init({
+  ProductReview.init({
     reviewer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -36,13 +36,13 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id'
         }
     },
-    reviewee_id: {
+    product_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      field: 'reviewee_id',
+      field: 'product_id',
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'products',
           key: 'id'
         }
     },
@@ -60,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Review',
-    tableName: 'reviews',
+    modelName: 'ProductReview',
+    tableName: 'product_reviews',
   });
-  return Review;
+  return ProductReview;
 };

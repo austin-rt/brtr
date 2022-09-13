@@ -20,10 +20,10 @@ const CreateProductReview = async (req, res) => {
 
 const UpdateProductReview = async (req, res) => {
   try {
-    let productreview_id = parseInt(req.params.productreview_id)
-    console.log(productreview_id)
+    let product_review_id = parseInt(req.params.product_review_id)
+    console.log(product_review_id)
     let updatedProductReview = await ProductReview.update(req.body, {
-      where: { id: productreview_id },
+      where: { id: product_review_id },
       returning: true
     })
     res.send(updatedProductReview)
@@ -34,9 +34,9 @@ const UpdateProductReview = async (req, res) => {
 
 const DeleteProductReview = async (req, res) => {
   try {
-    let productreview_id = parseInt(req.params.productreview_id);
-    await ProductReview.destroy({ where: { id: productreview_id } });
-    res.send({ message: `Deleted product review with an id of ${productreview_id}` });
+    let product_review_id = parseInt(req.params.product_review_id);
+    await ProductReview.destroy({ where: { id: product_review_id } });
+    res.send({ message: `Deleted product review with an id of ${product_review_id}` });
   } catch (error) {
     throw error;
   }

@@ -1,5 +1,5 @@
 const Router = require('express').Router();
-const controller = require('../controllers/ReviewController');
+const controller = require('../controllers/UserReviewController');
 
 Router.get('/', controller.GetAllReviews);
 Router.put('/:review_id', controller.UpdateReview);

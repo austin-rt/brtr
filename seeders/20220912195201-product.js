@@ -36,7 +36,7 @@ const products = await Promise.all(
   [...Array(25)].map(async (arr, idx) => {
         let user = await User.findOne({ order: sequelize.random(), raw: true });
         return {
-          name: falso.randPhrase(),
+          name: falso.randCatchPhrase(),
           description: falso.randParagraph(),
           price: falso.randFloat(),
           image: productPhotos[idx],

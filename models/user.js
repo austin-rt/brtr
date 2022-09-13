@@ -12,20 +12,26 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Product, {
         foreignKey: 'seller_id',
         as: 'products',
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
-      User.hasMany(models.Review, {
+      User.hasMany(models.UserReview, {
         foreignKey: 'reviewer_id',
-        as: 'reviews_posted',
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
+        as: 'user_reviews_posted',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
-      User.hasMany(models.Review, {
+      User.hasMany(models.UserReview, {
         foreignKey: 'reviewee_id',
         as: 'reviews_received',
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+      User.hasMany(models.ProductReview, {
+        foreignKey: 'reviewer_id',
+        as: 'product_reviews_posted',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
     }
   }
@@ -40,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true
       },
-    passwordDigest: {
+    password: {
         type: DataTypes.STRING,
         allowNull: false
       }
