@@ -2,7 +2,15 @@ const { Product, ProductReview, User } = require('../models');
 
 const GetAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+      include: [
+        {
+          model: ProductReview,
+          as: 'product_reviews',
+          include: [{ model: User, as: 'reviewer' }]
+        }
+      ]
+    })
     res.send(products)
   } catch (error) {
     throw error
@@ -16,7 +24,7 @@ const GetProductById = async (req, res) => {
         {
           model: ProductReview,
           as: 'product_reviews',
-          include: [{ model: User, as: 'product_reviews_posted' }]
+          include: [{ model: User, as: 'reviewer' }]
         }
       ]
     });

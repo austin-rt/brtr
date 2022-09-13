@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       })
       User.hasMany(models.ProductReview, {
         foreignKey: 'reviewer_id',
-        as: 'product_reviews_posted',
+        as: 'reviewer',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       ProductReview.belongsTo(models.User, {
         foreignKey: 'reviewer_id',
-        as: 'product_reviews_posted',
+        as: 'reviewer',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })

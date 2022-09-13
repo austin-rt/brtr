@@ -1,11 +1,11 @@
 require('dotenv').config()
 module.exports = {
   "development": {
-    "database": "rated_our_development",
+    "database": "brtr_development",
     "dialect": "postgres"
   },
   "test": {
-    "database": "rated_our_test",
+    "database": "brtr_test",
     "dialect": "postgres"
   },
   "production": {
