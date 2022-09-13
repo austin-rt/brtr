@@ -1,20 +1,20 @@
 require('dotenv').config()
 module.exports = {
-  development: {
-    database: 'brtr_development',
-    dialect: 'postgres'
+  "development": {
+    "database": "rated_our_development",
+    "dialect": "postgres"
   },
-  test: {
-    database: 'brtr_test',
-    dialect: 'postgres'
+  "test": {
+    "database": "rated_our_test",
+    "dialect": "postgres"
   },
-  production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-        require: true
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "rejectUnauthorized": false,
+        "require": true
       }
     }
   }
