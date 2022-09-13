@@ -1,7 +1,10 @@
 {
   "name": "brtr-backend",
-  "description": "## Date: 09/14/2022",
+  "description": "api for brtr app",
   "version": "1.0.0",
+  "engines":{
+    "node": "16.14.0"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
