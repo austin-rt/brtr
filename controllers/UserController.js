@@ -18,7 +18,7 @@ const GetUserById = async (req, res) => {
         { model: Product, as: 'products'},
         { model: UserReview, as: 'user_reviews_posted'},
         { model: UserReview, as: 'reviews_received'},
-        { model: ProductReview, as: 'product_reviews_posted'}
+        { model: ProductReview, as: 'reviewer'}
       ]
     })
     res.send(user)
