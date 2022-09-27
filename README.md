@@ -9,7 +9,7 @@
 
 ### **_Deployed Site_**
 
-[TBD](https://google.com)
+[brtr](https://brtr-app.herokuapp.com/)
 
 
 ---
@@ -44,10 +44,9 @@ A post MVP version sees reviews for both users and items, credit card processing
 
 
 ### **_Screen Shots_**
-TBD
 
-<!-- ##### Landing Page
-![placeholder](./images/crapple-maps-landing-page.jpg "Landing Page") -->
+##### Home Page
+![placeholder](./images/brtr-1.png "Home Page")
 
 
 
