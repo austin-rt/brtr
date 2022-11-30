@@ -3,7 +3,7 @@
   "description": "api for brtr app",
   "version": "1.0.0",
   "engines":{
-    "node": "16.0.0"
+    "node": "16.17.0"
   },
   "main": "index.js",
   "scripts": {
